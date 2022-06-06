@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.clientStudent.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.example.clientStudent.entity.Student">
+    <id column="s_id"  property="s_id" />
+    <result column="s_name" property="s_name" />
+    <result column="s_number" property="s_number" />
+    <result column="s_gender" property="s_gender" />
+    <result column="s_school" property="s_school" />
+    <result column="s_pro" property="s_pro" />
+    <result column="s_telephone" property="s_telephone" />
+    <result column="s_address" property="s_address" />
+  </resultMap>
+  <resultMap id="Score" type="com.example.clientStudent.entity.Scourse">
+    <id column="c_no" property="c_no"></id>
+    <result property="c_no" column="c_no"></result>
+    <result property="c_score" column="c_score"></result>
+  </resultMap>
+  <resultMap id="ResultMap" type="com.example.clientStudent.entity.Teacher">
+    <id column="t_name"  property="t_name" />
+    <association property="courses"  javaType="com.example.clientStudent.entity.Course">
+      <id property="c_no" column="c_no"></id>
+      <result property="c_name" column="c_name"></result>
+      <result property="c_credit" column="c_credit"></result>
+      <result property="c_semaster" column="c_semaster"></result>
+      <result property="c_studyhour" column="c_studyhour"></result>
+    </association>
+    <collection property="students" ofType="com.example.clientStudent.entity.Student">
+      <id property="s_id" column="s_id"></id>
+      <result property="s_name" column="s_name"></result>
+    </collection>
+    <collection property="scourses" ofType="com.example.clientStudent.entity.Scourse">
+      <result property="c_score" column="c_score"></result>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, s_name,s_number,s_gender,s_school,s_pro,s_telephone,s_address,
+  </sql>
+<!--  <select id="selectAll"  resultMap="BaseResultMap">-->
+<!--    select-->
+<!--        <include refid="Base_Column_List" />-->
+<!--        c_no,c_score-->
+<!--    from student s1,s_course s2 where s1.s_id=s2.s_no-->
+<!--  </select>-->
+<!--  <select id="selectById"  resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List"/>-->
+<!--    c_no,c_score-->
+<!--    from student s1,s_course s2 where s1.s_id=#{s_id} and s1.s_id=s2.s_no-->
+<!--  </select>-->
+  <select id="selectByIdAndCourse" resultMap="Score">
+    select s_no,c_no,c_score from s_course where s_no=#{s_no} and c_no=#{c_no}
+  </select>
+  <select id="selectById"  resultMap="ResultMap">
+    select teacher.t_name,course.c_no,course.c_name,course.c_credit,course.c_semaster,course.c_studyhour,student.s_id,student.s_name,
+    s_course.c_score from student,course,s_course,teacher where course.c_no=s_course.c_no and student.s_id=s_course.s_no and teacher.t_lecturenumber=s_course.c_no
+    and teacher.t_name =#{t_name} and student.s_id=#{s_id}
+  </select>
+  <select id="selectScore" resultMap="ResultMap">
+    select teacher.t_name,course.c_no,course.c_name,course.c_credit,course.c_semaster,course.c_studyhour,student.s_id,student.s_name,
+           s_course.c_score from student,course,s_course,teacher where course.c_no=s_course.c_no and student.s_id=s_course.s_no and teacher.t_lecturenumber=s_course.c_no
+        and teacher.t_name =#{t_name}
+  </select>
+
+
+<!--  <update id="updateStudent" parameterType="com.example.clientStudent.entity.Student">-->
+<!--    update student s1,s_course s2 set s_id=#{s_id},s_name=#{s_name},s_number=#{s_number},s_gender=#{s_gender},-->
+<!--                       s_school=#{s_school},s_pro=#{s_pro},s_telephone=#{s_telephone},s_address=#{s_address},c_no=#{c_no},-->
+<!--                                c_score=#{c_score} where s1.s_id=s2.s_no and s1.s_id=#{s_id}-->
+<!--  </update>-->
+  <update id="updateStudent" parameterType="com.example.clientStudent.entity.Scourse">
+    update s_course set s_no=#{s_no},c_no=#{c_no},c_score=#{c_score} where s_no=#{s_no} and c_no=#{c_no}
+  </update>
+  <insert id="insertScore" parameterType="com.example.clientStudent.entity.Scourse">
+    insert into s_course(s_no,c_no,c_score) values(#{s_no},#{c_no},#{c_score})
+  </insert>
+</mapper>

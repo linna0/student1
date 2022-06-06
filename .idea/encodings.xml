@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clientStudent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clientStudent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client_03" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client_03/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employ" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employ/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbon" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java" charset="UTF-8" />
+  </component>
+</project>

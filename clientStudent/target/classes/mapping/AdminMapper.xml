@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.clientStudent.mapper.AdminMapper">
+    <resultMap id="rmStudent" type="com.example.clientStudent.entity.Student">
+        <id column="s_id"  property="s_id" />
+        <result column="s_name" property="s_name" />
+        <result column="s_number" property="s_number" />
+        <result column="s_gender" property="s_gender" />
+        <result column="s_school" property="s_school" />
+        <result column="s_pro" property="s_pro" />
+        <result column="s_telephone" property="s_telephone" />
+        <result column="s_address" property="s_address" />
+    </resultMap>
+    <sql id="Base_Column_List1">
+        s_id, s_name,s_number,s_gender,s_school,s_pro,s_telephone,s_address
+    </sql>
+      <select id="AdminSelectStudent"  resultMap="rmStudent">
+        select
+            <include refid="Base_Column_List1" />
+        from student
+      </select>
+    <select id="AdminSelectStudentById"  resultMap="rmStudent">
+        select
+        <include refid="Base_Column_List1" />
+        from student where s_id=#{s_id}
+    </select>
+    <update id="AdminUpdateStudent" parameterType="com.example.clientStudent.entity.Student">
+        update student set s_id=#{s_id},s_name=#{s_name},s_number=#{s_number},s_gender=#{s_gender},s_school=#{s_school},s_pro=#{s_pro},
+                           s_telephone=#{s_telephone},s_address=#{s_address} where s_id=#{s_id}
+    </update>
+    <delete id="AdminDeleteStudent" parameterType="com.example.clientStudent.entity.Student">
+        delete from student where s_id=#{s_id}
+    </delete>
+    <insert id="AdminInsertStudent" >
+        insert into student(s_id,s_name,s_number,s_gender,s_school,s_pro,s_telephone,s_address) values
+        (#{s_id},#{s_name},#{s_number},#{s_gender},#{s_school},#{s_pro},#{s_telephone},#{s_address})
+    </insert>
+<!--    老师-->
+    <resultMap id="rmTeacher" type="com.example.clientStudent.entity.Teacher">
+        <id column="t_no"  property="t_no" />
+        <result column="t_name" property="t_name" />
+        <result column="t_gender" property="t_gender" />
+        <result column="t_department" property="t_department" />
+        <result column="t_job" property="t_job" />
+        <result column="t_lecturenumber" property="t_lecturenumber" />
+    </resultMap>
+    <sql id="Base_Column_List2">
+        t_no,t_name,t_gender,t_department,t_job,t_lecturenumber
+    </sql>
+    <select id="AdminSelectTeacher"  resultMap="rmTeacher">
+        select
+        <include refid="Base_Column_List2" />
+        from teacher
+    </select>
+    <update id="AdminUpdateTeacher" parameterType="com.example.clientStudent.entity.Teacher">
+        update teacher set t_no=#{t_no},t_name=#{t_name},t_gender=#{t_gender},t_department=#{t_department},
+                           t_job=#{t_job},t_lecturenumber=#{t_lecturenumber} where t_no=#{t_no}
+    </update>
+    <delete id="AdminDeleteTeacher">
+        delete from teacher where t_no=#{t_no}
+    </delete>
+    <insert id="AdminInsertTeacher"  parameterType="com.example.clientStudent.entity.Teacher">
+        insert into teacher(t_no,t_name,t_gender,t_department,t_job,t_lecturenumber) values
+            (#{t_no},#{t_name},#{t_gender},#{t_department},#{t_job},#{t_lecturenumber})
+    </insert>
+    <select id="AdminSelectTeacherById"  resultMap="rmTeacher">
+        select
+        <include refid="Base_Column_List2" />
+        from teacher where t_no=#{t_no}
+    </select>
+
+
+<!--    对学生成绩的操作-->
+    <resultMap id="BaseResultMap" type="com.example.clientStudent.entity.Student">
+        <id column="s_id"  property="s_id" />
+        <result column="s_name" property="s_name" />
+        <result column="s_number" property="s_number" />
+        <result column="s_gender" property="s_gender" />
+        <result column="s_school" property="s_school" />
+        <result column="s_pro" property="s_pro" />
+        <result column="s_telephone" property="s_telephone" />
+        <result column="s_address" property="s_address" />
+    </resultMap>
+    <resultMap id="Score" type="com.example.clientStudent.entity.Scourse">
+        <id column="c_no" property="c_no"></id>
+        <result property="c_no" column="c_no"></result>
+        <result property="c_score" column="c_score"></result>
+    </resultMap>
+    <resultMap id="ResultMap" type="com.example.clientStudent.entity.Teacher">
+        <id column="t_name"  property="t_name" />
+        <association property="courses"  javaType="com.example.clientStudent.entity.Course">
+            <id property="c_no" column="c_no"></id>
+            <result property="c_name" column="c_name"></result>
+            <result property="c_credit" column="c_credit"></result>
+            <result property="c_semaster" column="c_semaster"></result>
+            <result property="c_studyhour" column="c_studyhour"></result>
+        </association>
+        <collection property="students" ofType="com.example.clientStudent.entity.Student">
+            <id property="s_id" column="s_id"></id>
+            <result property="s_name" column="s_name"></result>
+        </collection>
+        <collection property="scourses" ofType="com.example.clientStudent.entity.Scourse">
+            <result property="c_score" column="c_score"></result>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+        s_id, s_name,s_number,s_gender,s_school,s_pro,s_telephone,s_address,
+    </sql>
+    <select id="selectByIdAndCourse" resultMap="Score">
+        select s_no,c_no,c_score from s_course where s_no=#{s_no} and c_no=#{c_no}
+    </select>
+    <select id="selectById"  resultMap="ResultMap">
+        select teacher.t_name,course.c_no,course.c_name,course.c_credit,course.c_semaster,course.c_studyhour,student.s_id,student.s_name,
+               s_course.c_score from student,course,s_course,teacher where course.c_no=s_course.c_no and student.s_id=s_course.s_no and teacher.t_lecturenumber=s_course.c_no
+                                                                       and s_course.s_no=#{s_no}
+    </select>
+    <select id="selectScore" resultMap="ResultMap">
+        select teacher.t_name,course.c_no,course.c_name,course.c_credit,course.c_semaster,course.c_studyhour,student.s_id,student.s_name,
+               s_course.c_score from student,course,s_course,teacher where course.c_no=s_course.c_no and student.s_id=s_course.s_no and teacher.t_lecturenumber=s_course.c_no
+    </select>
+    <update id="updateStudent" parameterType="com.example.clientStudent.entity.Scourse">
+        update s_course set s_no=#{s_no},c_no=#{c_no},c_score=#{c_score} where s_no=#{s_no} and c_no=#{c_no}
+    </update>
+    <insert id="insertScore" parameterType="com.example.clientStudent.entity.Scourse">
+        insert into s_course(s_no,c_no,c_score) values(#{s_no},#{c_no},#{c_score})
+    </insert>
+    <delete id="deleteScore" parameterType="com.example.clientStudent.entity.Scourse">
+        delete from s_course where s_no=#{s_no} and c_no=#{c_no}
+    </delete>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.clientStudent.mapper.TeacherMapper">
+    <resultMap id="BaseResultMap" type="com.example.clientStudent.entity.Teacher">
+        <!--@mbg.generated-->
+        <!--@Table student-->
+        <id column="t_no"  property="t_no" />
+        <result column="t_name" property="t_name" />
+        <result column="t_gender" property="t_gender" />
+        <result column="t_department" property="t_department" />
+        <result column="t_job" property="t_job" />
+        <result column="t_lecturenumber" property="t_lecturenumber" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        t_no, t_name,t_gender, t_department,t_job,t_lecturenumber
+    </sql>
+    <select id="selectByN"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from teacher where t_no=#{t_no} and t_name=#{t_name}
+--         select t_no,t_name from teacher where t_no
+    </select>
+    <insert id="register"  parameterType="com.example.clientStudent.entity.Teacher">
+        insert into teacher(t_no,t_name,t_gender,t_department,t_job,t_lecturenumber)
+        values (#{t_no},#{t_name},#{t_gender},#{t_department},#{t_job},#{t_lecturenumber})
+    </insert>
+</mapper>

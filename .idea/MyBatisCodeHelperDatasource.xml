@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="genSqlFilePath" value="$PROJECT_DIR$/client/src/main/java/com/wzw/client/entity" />
+        <option name="generateService" value="true" />
+        <option name="generateServiceInterface" value="true" />
+        <option name="javaMapperPackage" value="com.wzw.client.mapper" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/client/src/main/java" />
+        <option name="javaModelPackage" value="com.wzw.client.entity" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/client/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="client" />
+        <option name="lombokDataAnnotation" value="true" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="client">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.wzw.client.mapper" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/client/src/main/java" />
+                  <option name="javaModelPacakge" value="com.wzw.client.entity" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/client/src/main/java" />
+                  <option name="javaServiceInterfacePackage" value="com.wzw.client.service" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/client/src/main/java" />
+                  <option name="javaServicePackage" value="com.wzw.client.service" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/client/src/main/java" />
+                  <option name="xmlPackage" value="com.wzw.client.mapper" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/client/src/main/resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="test:book">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="book_id" />
+                  <option name="javaModelName" value="Book" />
+                  <option name="moduleName" value="client" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="xmlMapperPackage" value="com.wzw.client.mapper" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/client/src/main/resources" />
+      </ProjectProfile>
+    </option>
+  </component>
+</project>

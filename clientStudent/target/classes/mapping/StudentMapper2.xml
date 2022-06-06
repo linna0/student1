@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.clientStudent.mapper.StudentMapper2">
+
+  <select id="selectAll" resultType="com.example.clientStudent.entity.Student">
+    select * from student
+  </select>
+
+  <select id="getStudentById" resultType="com.example.clientStudent.entity.Student">
+    select * from  student
+    where s_id=#{s_id}
+  </select>
+
+  <delete id="deleteStudentById">
+    delete student,s_course from student,s_course
+    where student.s_id=s_course.s_no and s_id=#{s_id} ;
+  </delete>
+
+  <delete id="deleteStudentById2">
+    delete  from student
+    where  s_id=#{s_id} ;
+  </delete>
+
+  <select id="scoreByNumberCount" resultType="int">
+    select count(1) from s_course
+    where s_no=#{s_no}
+  </select>
+  <update id="modifyStudentById" parameterType="com.example.clientStudent.entity.Student">
+    update student
+    <set>
+      <if test="s_id!=null">
+        s_id=#{s_id},
+      </if>
+      <if test="s_name!=null  and s_name.length>0">
+        s_name=#{s_name},
+      </if>
+      <if test="s_number!=null  and s_number.length>0">
+        s_number=#{s_number},
+      </if>
+      <if test="s_gender!=null  and s_gender.length>0">
+        s_gender=#{s_gender},
+      </if>
+      <if test="s_school!=null  and s_school.length>0">
+        s_school=#{s_school},
+      </if>
+      <if test="s_pro!=null  and s_pro.length>0">
+        s_pro=#{s_pro},
+      </if>
+      <if test="s_telephone!=null  and s_telephone.length>0">
+        s_telephone=#{s_telephone},
+      </if>
+      <if test="s_address!=null  and s_address.length>0">
+        s_address=#{s_address},
+      </if>
+    </set>
+    where s_id=#{s_id}
+  </update>
+
+  <insert id="addStudent" parameterType="com.example.clientStudent.entity.Student">
+    insert student(s_id, s_name, s_number, s_gender, s_school, s_pro, s_telephone, s_address)
+    VALUES (#{s_id},#{s_name}, #{s_number},#{s_gender}, #{s_school}, #{s_pro}, #{s_telephone}, #{s_address})
+  </insert>
+
+  <select id="getStudentByNumber" resultType="com.example.clientStudent.entity.Student">
+    select * from  student
+    where s_number=#{s_number}
+  </select>
+
+  <select id="getNumberExistOrNot" resultType="int">
+    select count(1) from student
+    where s_number=#{s_number}
+  </select>
+
+  <select id="getScoreList" resultType="com.example.clientStudent.entity.studyScore">
+    select course.c_no,course.c_name,course.c_credit,course.c_studyhour,
+           s_course.c_score,teacher.t_name,course.c_semaster from course
+            left join s_course on course.c_no=s_course.c_no
+            left join teacher on teacher.t_lecturenumber=course.c_no
+    WHERE c_semaster=#{c_semaster} and s_no=#{s_no}
+    order by c_no ASC limit #{currentPageNo},#{pageSize}
+  </select>
+
+  <select id="getScoreCount" resultType="int">
+    select count(1) from course,s_course
+    where course.c_no=s_course.c_no and s_course.s_no=#{s_no} and course.c_semaster=#{c_semaster}
+  </select>
+
+  <select id="getStudentCount" resultType="int">
+    select count(1) from student
+    <where>
+<!--      <if test=" s_id!= null and s_id== ‘0’">-->
+<!--        and s_id like concat('%',#{s_id},'%')-->
+<!--      </if>-->
+      <if test="s_name !=  '-1'.toString() and s_name.length>0">
+        and s_name like concat('%',#{s_name},'%')
+      </if>
+      <if test="s_number != '-1'.toString() and s_number.length>0">
+        and s_number like concat('%',#{s_number},'%')
+      </if>
+
+
+    </where>
+  </select>
+
+  <select id="getStudentList" resultType="com.example.clientStudent.entity.Student">
+    select * from student
+    <where>
+<!--      <if test=" s_id!= null and s_id== ‘0’">-->
+<!--        and s_id like concat('%',#{s_id},'%')-->
+<!--      </if>-->
+
+      <if test="s_name != '-1'.toString() and s_name.length>0">
+        and s_name like concat('%',#{s_name},'%')
+      </if>
+      <if test="s_number != '-1'.toString() and s_number.length>0">
+        and s_number like concat('%',#{s_number},'%')
+      </if>
+    </where>
+    order by s_id ASC limit #{currentPageNo},#{pageSize}
+  </select>
+
+</mapper>
